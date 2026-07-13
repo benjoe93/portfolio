@@ -14,8 +14,9 @@
   --space-16: 4rem;
 
   --radius: 12px;
-  --maxw: 72rem;
-  --maxw-prose: 46rem;
+  /* Single content width shared by every page (grids and reading pages alike). */
+  --maxw: 64rem;
+  --maxw-prose: var(--maxw);
 
   /* light theme */
   --bg: #fbfaf8;
