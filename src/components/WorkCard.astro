@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  cover: ImageMetadata | string;
+  coverAlt?: string;
+  disciplines: string[];
+  repoUrl?: string;
+  artstationUrl?: string;
+  liveUrl?: string;
+}
+const { href, title, summary, cover, coverAlt = '', disciplines, repoUrl, artstationUrl, liveUrl } =
+  Astro.props;
+
+const isRemote = typeof cover === 'string';
+const links = [
+  repoUrl && { href: repoUrl, label: 'Code' },
+  artstationUrl && { href: artstationUrl, label: 'ArtStation' },
+  liveUrl && { href: liveUrl, label: 'Live' },
+].filter(Boolean) as { href: string; label: string }[];
+---
+<article class="card" data-disciplines={disciplines.join(' ')}>
+  <a class="card-cover" href={href} aria-label={title}>
+    {isRemote ? (
+      <img src={cover as string} alt={coverAlt} loading="lazy" decoding="async" width="1200" height="800" />
+    ) : (
+      <Image src={cover as ImageMetadata} alt={coverAlt} widths={[400, 800]} sizes="(max-width: 40rem) 100vw, 33vw" loading="lazy" />
+    )}
+  </a>
+  <div class="card-body">
+    <ul class="card-tags">
+      {disciplines.map((d) => <li class="tag">{d}</li>)}
+    </ul>
+    <h3 class="card-title"><a href={href}>{title}</a></h3>
+    <p class="muted card-summary">{summary}</p>
+    {links.length > 0 && (
+      <ul class="card-links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.14s ease, border-color 0.14s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .card-cover { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface); }
+  .card-cover :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .card:hover .card-cover :global(img) { transform: scale(1.03); }
+  .card-body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+  .card-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+  .card-title { margin: var(--space-1) 0 0; font-size: 1.15rem; }
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--accent); }
+  .card-summary { margin: 0; font-size: 0.95rem; }
+  .card-links { display: flex; flex-wrap: wrap; gap: var(--space-3); list-style: none; margin: var(--space-2) 0 0; padding: 0; }
+  .card-links a { font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+  .card-links a:hover { text-decoration: underline; }
+</style>

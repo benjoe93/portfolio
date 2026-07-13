@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Stylized waterfall environment placeholder">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b3a5c"/>
+      <stop offset="1" stop-color="#5fb6d6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g3)"/>
+  <g fill="#eaf7ff" fill-opacity="0.4">
+    <rect x="500" y="120" width="60" height="560" rx="30"/>
+    <rect x="590" y="160" width="46" height="520" rx="23"/>
+    <rect x="660" y="120" width="60" height="560" rx="30"/>
+  </g>
+  <text x="60" y="120" font-family="system-ui, sans-serif" font-size="46" fill="#f2fbff" font-weight="700">Stylized Waterfall</text>
+</svg>

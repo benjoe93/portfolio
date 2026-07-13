@@ -1,0 +1,45 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  tags?: string[];
+}
+const { title, description, date, updated, tags = [] } = Astro.props;
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title={title} description={description} type="article" publishedTime={date}>
+  <article class="container section">
+    <header class="post-header prose">
+      <div class="stack">
+        <p class="eyebrow">Blog</p>
+        <h1>{title}</h1>
+        <p class="muted post-meta">
+          <time datetime={date.toISOString()}>{fmt(date)}</time>
+          {updated && <span> · updated {fmt(updated)}</span>}
+        </p>
+        {tags.length > 0 && (
+          <ul class="taglist">
+            {tags.map((t) => <li class="tag">{t}</li>)}
+          </ul>
+        )}
+      </div>
+    </header>
+    <div class="prose post-body">
+      <slot />
+    </div>
+  </article>
+
+  <style>
+    .post-header { margin-bottom: var(--space-8); }
+    .post-meta { font-size: 0.95rem; }
+    .taglist { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+    .post-body { margin-inline: auto; }
+    .post-body :global(h2) { margin-top: var(--space-8); }
+    .post-body :global(pre) { margin-block: var(--space-4); }
+  </style>
+</BaseLayout>

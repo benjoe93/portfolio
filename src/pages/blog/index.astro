@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Blog" description="Notes on technical art — shaders, procedural tools, and the craft of bridging code and visuals.">
+  <section class="section container">
+    <div class="stack" style="margin-bottom: var(--space-12)">
+      <p class="eyebrow">Writing</p>
+      <h1>Blog</h1>
+      <p class="muted" style="max-width: 44rem">Breakdowns, notes, and the occasional deep dive.</p>
+    </div>
+
+    <ul class="post-list">
+      {posts.map((p) => (
+        <li>
+          <a class="post-item" href={`${base}/blog/${p.id}`}>
+            <time class="muted post-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+            <div class="stack">
+              <h2 class="post-item-title">{p.data.title}</h2>
+              <p class="muted">{p.data.description}</p>
+              {p.data.tags.length > 0 && (
+                <ul class="taglist">
+                  {p.data.tags.map((t) => <li class="tag">{t}</li>)}
+                </ul>
+              )}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .post-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); }
+  .post-item {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.12s ease, transform 0.12s ease;
+  }
+  .post-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .post-date { padding-top: 0.2rem; }
+  .post-item-title { font-size: 1.3rem; margin: 0; }
+  .post-item:hover .post-item-title { color: var(--accent); }
+  .taglist { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+  @media (max-width: 34rem) {
+    .post-item { grid-template-columns: 1fr; gap: var(--space-2); }
+  }
+</style>

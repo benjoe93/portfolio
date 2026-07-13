@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+// rel="me" backlinks consolidate identity across platforms (IndieWeb) and
+// preserve each platform's own discoverability.
+const socials = [
+  { href: site.socials.artstation, label: 'ArtStation' },
+  { href: site.socials.github, label: 'GitHub' },
+  { href: site.socials.linkedin, label: 'LinkedIn' },
+  { href: `mailto:${site.email}`, label: 'Email' },
+];
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="muted">© {year} {site.name} · {site.role}</p>
+    <ul class="footer-links">
+      {socials.map((s) => (
+        <li>
+          <a href={s.href} rel={s.href.startsWith('mailto:') ? undefined : 'me noopener'} target={s.href.startsWith('mailto:') ? undefined : '_blank'}>{s.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: var(--space-16);
+    padding-block: var(--space-8);
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-links { display: flex; gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; }
+  .footer-links a:hover { color: var(--accent); }
+</style>

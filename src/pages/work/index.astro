@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import { DISCIPLINES } from '../../content.config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const work = (await getCollection('work', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// Only offer filters for disciplines that actually appear, in canonical order.
+const present = new Set(work.flatMap((w) => w.data.disciplines));
+const filters = DISCIPLINES.filter((d) => present.has(d));
+---
+<BaseLayout title="Work" description="Selected technical art — shaders, procedural tools, VFX, and environments, spanning code and visuals.">
+  <section class="section container">
+    <div class="stack" style="margin-bottom: var(--space-8)">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Work</h1>
+      <p class="muted" style="max-width: 44rem">
+        Technical art lives between code and visuals, so it all lives on one page.
+        Filter by discipline — many pieces sit in more than one.
+      </p>
+    </div>
+
+    <FilterBar disciplines={filters} />
+
+    <div class="work-grid">
+      {work.map((w) => (
+        <WorkCard
+          href={`${base}/work/${w.id}`}
+          title={w.data.title}
+          summary={w.data.summary}
+          cover={w.data.cover}
+          coverAlt={w.data.coverAlt}
+          disciplines={w.data.disciplines}
+          repoUrl={w.data.repoUrl}
+          artstationUrl={w.data.artstationUrl}
+          liveUrl={w.data.liveUrl}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-6);
+  }
+</style>

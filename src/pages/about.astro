@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Edit these to make the page yours.
+const skills = [
+  'Shaders (HLSL / node graphs)',
+  'Procedural generation',
+  'Tool & pipeline scripting (Python, C#)',
+  'Real-time VFX',
+  'Look-dev & lighting',
+  'Optimization & profiling',
+];
+
+const experience = [
+  { role: 'Technical Artist', org: 'Studio Name', period: '2023 — Present', note: 'Shaders, tools, and pipeline work for real-time projects.' },
+  { role: 'Junior Technical Artist', org: 'Earlier Studio', period: '2021 — 2023', note: 'Material authoring and asset pipeline support.' },
+];
+---
+<BaseLayout title="About" description={`About ${site.name}, ${site.role}.`}>
+  <section class="section container">
+    <div class="about-grid">
+      <div class="prose">
+        <p class="eyebrow">About</p>
+        <h1>{site.name}</h1>
+        <p class="lede muted">{site.tagline}</p>
+        <p>
+          I'm a technical artist working at the seam between art and engineering —
+          building shaders, procedural tools, and the pipeline glue that lets
+          artists move fast. Replace this paragraph with your own story: what you
+          love making, the problems you like solving, and what you're looking for.
+        </p>
+
+        <h2>Skills</h2>
+        <ul class="skills">
+          {skills.map((s) => <li class="tag">{s}</li>)}
+        </ul>
+
+        <h2>Experience</h2>
+        <ul class="timeline">
+          {experience.map((e) => (
+            <li>
+              <div class="timeline-head">
+                <strong>{e.role}</strong> · {e.org}
+                <span class="muted timeline-period">{e.period}</span>
+              </div>
+              <p class="muted">{e.note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <aside class="about-side">
+        <div class="card-panel stack">
+          <h2 class="side-title">Get in touch</h2>
+          <p class="muted">The fastest way to reach me.</p>
+          <a class="btn btn--primary" href={`mailto:${site.email}`}>Email me</a>
+          <a class="btn" href={`${base}/resume.pdf`} target="_blank" rel="noopener">Download résumé (PDF)</a>
+          <ul class="side-links">
+            <li><a href={site.socials.artstation} target="_blank" rel="me noopener">ArtStation ↗</a></li>
+            <li><a href={site.socials.github} target="_blank" rel="me noopener">GitHub ↗</a></li>
+            <li><a href={site.socials.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+  @media (min-width: 52rem) {
+    .about-grid { grid-template-columns: 1fr 20rem; align-items: start; }
+    .about-side { position: sticky; top: 5rem; }
+  }
+  .skills, .side-links { list-style: none; padding: 0; }
+  .skills { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; }
+  .timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-6); }
+  .timeline-head { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: baseline; }
+  .timeline-period { margin-inline-start: auto; font-size: 0.9rem; }
+  .card-panel {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+  }
+  .side-title { font-size: 1.25rem; margin: 0; }
+  .side-links { display: grid; gap: var(--space-2); margin: var(--space-2) 0 0; }
+  .side-links a { font-weight: 600; text-decoration: none; }
+  .side-links a:hover { text-decoration: underline; }
+</style>

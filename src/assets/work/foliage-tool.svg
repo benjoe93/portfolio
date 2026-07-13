@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Foliage scatter tool placeholder">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12332a"/>
+      <stop offset="1" stop-color="#3f8f5f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g2)"/>
+  <g fill="#bff0c8" fill-opacity="0.35">
+    <circle cx="240" cy="560" r="60"/>
+    <circle cx="420" cy="620" r="90"/>
+    <circle cx="700" cy="540" r="70"/>
+    <circle cx="900" cy="600" r="110"/>
+    <circle cx="1060" cy="520" r="55"/>
+  </g>
+  <text x="60" y="120" font-family="system-ui, sans-serif" font-size="46" fill="#eafff0" font-weight="700">Foliage Scatter Tool</text>
+</svg>

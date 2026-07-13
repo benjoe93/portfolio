@@ -1,0 +1,71 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { href: `${base}/`, label: 'Home' },
+  { href: `${base}/work`, label: 'Work' },
+  { href: `${base}/blog`, label: 'Blog' },
+  { href: `${base}/about`, label: 'About' },
+];
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const h = href.replace(/\/$/, '') || '/';
+  return h === '/' ? current === (base || '/') : current.startsWith(h);
+};
+---
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href={`${base}/`}>{site.name}</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: var(--space-3);
+  }
+  .brand { font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+  nav { margin-inline-start: auto; }
+  .nav-links {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    padding: var(--space-2) 0;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a[aria-current="page"] { color: var(--accent); }
+  @media (max-width: 34rem) {
+    .nav-inner { gap: var(--space-3); flex-wrap: wrap; }
+    nav { width: 100%; order: 3; margin-inline-start: 0; }
+  }
+</style>

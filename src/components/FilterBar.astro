@@ -1,0 +1,55 @@
+---
+interface Props {
+  disciplines: string[];
+}
+const { disciplines } = Astro.props;
+---
+<div class="filterbar" role="group" aria-label="Filter work by discipline">
+  <button class="filter-btn is-active" type="button" data-filter="*" aria-pressed="true">
+    All
+  </button>
+  {disciplines.map((d) => (
+    <button class="filter-btn" type="button" data-filter={d} aria-pressed="false">{d}</button>
+  ))}
+</div>
+
+<style>
+  .filterbar { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-8); }
+  .filter-btn {
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: var(--space-2) var(--space-4);
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color 0.12s ease, color 0.12s ease;
+  }
+  .filter-btn:hover { color: var(--text); border-color: var(--accent); }
+  .filter-btn.is-active { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+</style>
+
+<script>
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-btn'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.work-grid [data-disciplines]'));
+
+  function apply(filter: string) {
+    for (const card of cards) {
+      const tags = (card.dataset.disciplines ?? '').split(' ');
+      const show = filter === '*' || tags.includes(filter);
+      card.style.display = show ? '' : 'none';
+    }
+    for (const btn of buttons) {
+      const active = btn.dataset.filter === filter;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    }
+  }
+
+  for (const btn of buttons) {
+    btn.addEventListener('click', () => apply(btn.dataset.filter ?? '*'));
+  }
+</script>
