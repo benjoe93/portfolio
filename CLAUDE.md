@@ -28,6 +28,8 @@ There is **no test runner and no separate lint step** — `npm run build` is the
 
 **Dual cover handling — the main gotcha.** `cover` is a union of `image()` (local asset, optimized) and a plain string (hotlinked ArtStation CDN URL). Anywhere a cover is rendered (`WorkCard.astro`, `work/[...slug].astro`), code branches on `typeof cover === 'string'`: remote strings use a plain `<img>`, local assets use `<Image>` from `astro:assets`. Preserve this branch when touching cover rendering.
 
+**`Gallery.astro` — per-work image grid + lightbox.** Work items may set an optional `gallery` array (`{ src, alt, caption? }`); it renders under the case study. Clicking a thumbnail opens a full-screen lightbox built on the native `<dialog>` element, driven by a small vanilla-JS island (same pattern as `ThemeToggle`/`FilterBar`) with prev/next slideshow nav, arrow-key/swipe support, and focus return. The enlarged (full-size) source is the original optimized asset for local images and the pasted URL for remote ArtStation images — it reuses the same `typeof src === 'string'` local-vs-remote branch as the cover.
+
 **`/work` filtering is client-side and DOM-attribute driven.** Each card renders `data-disciplines="tag1 tag2"`; `FilterBar.astro`'s inline script shows/hides `.work-grid [data-disciplines]` by toggling `style.display`. The FilterBar must be rendered inside/near a `.work-grid` for its selectors to match — it is not a data prop pipeline.
 
 **Base-path awareness.** All internal links compute `const base = import.meta.env.BASE_URL.replace(/\/$/, '')` and prefix hrefs with it. This exists so a project-repo deploy (`base: '/repo'` in `astro.config.mjs`) works without rewriting links. When adding internal links, follow this pattern rather than hardcoding `/`.
@@ -37,6 +39,8 @@ There is **no test runner and no separate lint step** — `npm run build` is the
 **Theming.** CSS custom-property tokens in `src/styles/global.css` define light + dark (`:root` / `:root[data-theme="dark"]` / a `prefers-color-scheme` block for the no-explicit-choice case). An `is:inline` script in `BaseLayout.astro`'s `<head>` applies the saved theme before paint (no FOUC); `ThemeToggle.astro` only flips and persists to `localStorage`.
 
 **SEO.** `SEO.astro` (rendered via `BaseLayout`) emits title/description/canonical/OG/Twitter for every page; pass `person` on the home page to also emit `Person` JSON-LD. Sitemap comes from `@astrojs/sitemap`; the blog RSS feed is `src/pages/rss.xml.ts`.
+
+**`templates/` is reference-only, excluded from the build.** Root-level copy-paste content snippets (work/blog frontmatter, gallery block, body sections). It sits outside `src/pages` and the `src/content` globs, so Astro never routes or publishes it. **Do not move it into `src/content`** — the glob loader would try to parse the snippets as real content and fail schema validation.
 
 ## Deploy
 

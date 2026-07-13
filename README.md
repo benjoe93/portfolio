@@ -52,6 +52,7 @@ src/
   pages/             # index, work/, blog/, about, rss.xml, robots.txt
   assets/            # local images (optimized by Astro at build)
 public/              # favicon, resume.pdf, og-default.png, CNAME (static, copied as-is)
+templates/           # copy-paste content snippets — NOT built/published (see below)
 astro.config.mjs     # site URL + integrations
 ```
 
@@ -61,15 +62,26 @@ astro.config.mjs     # site URL + integrations
 2. **Deploy URL** — set `site` in `astro.config.mjs` to your final URL. Keep `base`
    unset for a `<username>.github.io` repo or a custom domain; set `base: '/<repo>'`
    only for a project-repo deploy.
-3. **Add work** — drop a `.md`/`.mdx` file in `src/content/work/`. Schema:
-   `title, summary, cover, coverAlt, disciplines[], repoUrl?, artstationUrl?, liveUrl?, date, featured?, draft?`.
+3. **Add work** — drop a `.md`/`.mdx` file in `src/content/work/` (or copy a template — see below). Schema:
+   `title, summary, cover, coverAlt, disciplines[], repoUrl?, artstationUrl?, liveUrl?, date, featured?, draft?, gallery?`.
    - `cover` is either a local asset path (optimized by Astro) or a hotlinked
      ArtStation CDN URL. To feature an ArtStation piece: right-click its image →
      **Copy image address** → paste as `cover`; paste the project page URL as `artstationUrl`.
    - `disciplines` drives the filter on `/work`; valid values are in `DISCIPLINES` in `src/content.config.ts`.
-4. **Add posts** — drop a `.md`/`.mdx` file in `src/content/blog/` (`title, description, date, tags[], draft?`).
+   - `gallery` (optional) is an array of `{ src, alt, caption? }` images rendered under the
+     case study as a grid; clicking a thumbnail opens a **lightbox** with prev/next slideshow
+     navigation. `src` is a local asset or a hotlinked ArtStation CDN URL, like `cover`.
+4. **Add posts** — drop a `.md`/`.mdx` file in `src/content/blog/` (`title, description, date, updated?, tags[], draft?`).
 5. **About/CV** — edit `src/pages/about.astro` (bio, skills, experience) and drop your `resume.pdf` in `public/`.
 6. **Assets** — replace `public/favicon.svg` and add a 1200×630 `public/og-default.png` for social cards.
+
+## Content templates
+
+The `templates/` folder holds copy-paste snippets for new content (work headers,
+the gallery block, blog headers, body sections). It lives **outside `src/`, so
+Astro never builds or publishes it** — it's reference only. To add content, copy
+a snippet into `src/content/work/` or `src/content/blog/` and fill it in. See
+`templates/README.md` for the index.
 
 ## Deploy (GitHub Pages)
 

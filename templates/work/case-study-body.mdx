@@ -1,0 +1,41 @@
+{/*
+  TEMPLATE — Work case-study body
+  Everything BELOW the frontmatter fences is the case study. Use a .mdx file if
+  you want components/JSX; plain .md works for text + Markdown images + code.
+
+  The `cover` (in frontmatter) renders automatically at the top of the page, and
+  the `gallery` (if set) renders at the bottom — so the body is just your writeup.
+  Copy the sections you want.
+*/}
+
+The one-line hook: what this is and why it's interesting.
+
+## The problem
+
+What you were trying to solve and the constraint that made it hard.
+
+## Approach
+
+- Bullet the key techniques.
+- Keep it skimmable.
+
+Inline image (LOCAL asset, relative to this file — Astro optimizes it):
+
+![Erosion mask breakdown](../../assets/work/detail-erosion.jpg)
+
+Inline image (hotlinked ArtStation CDN — used as-is):
+
+![Final shot](https://cdna.artstation.com/p/assets/images/images/012/345/678/large/name.jpg)
+
+Fenced code block (syntax highlighting is built in — set the language after the backticks):
+
+```hlsl
+// Curvature-weighted erosion blend (simplified)
+float curv = saturate(dot(ddx(worldNormal), ddx(worldPos)) * curvGain);
+float erosion = smoothstep(erodeLow, erodeHigh, curv * mask);
+albedo = lerp(baseRock, erodedRock, erosion);
+```
+
+## Result
+
+What shipped and the payoff — one or two sentences.
