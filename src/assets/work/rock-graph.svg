@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-label="Shader node graph placeholder">
+  <rect width="1000" height="700" fill="#241d16"/>
+  <g stroke="#e08a4c" stroke-width="3" fill="none" stroke-opacity="0.8">
+    <path d="M120 200 H320"/>
+    <path d="M120 360 H320"/>
+    <path d="M470 280 H660"/>
+    <path d="M810 280 H900"/>
+  </g>
+  <g fill="#3a2f26" stroke="#8a6d4f" stroke-width="2">
+    <rect x="60" y="160" width="60" height="80" rx="8"/>
+    <rect x="60" y="320" width="60" height="80" rx="8"/>
+    <rect x="320" y="220" width="150" height="120" rx="10"/>
+    <rect x="660" y="230" width="150" height="100" rx="10"/>
+  </g>
+  <text x="60" y="90" font-family="system-ui, sans-serif" font-size="34" fill="#f4ece0" font-weight="700">Node graph</text>
+</svg>

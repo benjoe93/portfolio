@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-label="Rock mesh wireframe placeholder">
+  <rect width="1000" height="700" fill="#1b1a17"/>
+  <g stroke="#a7a091" stroke-width="1.5" fill="none" stroke-opacity="0.7">
+    <path d="M200 520 L360 260 L520 420 L680 220 L820 500 Z"/>
+    <path d="M360 260 L520 420 L500 560 L300 540 Z"/>
+    <path d="M520 420 L680 220 L760 360 L680 520 Z"/>
+    <path d="M200 520 L300 540 L500 560 L680 520 L820 500"/>
+  </g>
+  <text x="60" y="90" font-family="system-ui, sans-serif" font-size="34" fill="#f2ede3" font-weight="700">Wireframe</text>
+</svg>

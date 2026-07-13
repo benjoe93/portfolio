@@ -33,6 +33,18 @@ const work = defineCollection({
       date: z.coerce.date(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
+      // Optional image gallery rendered under the case study. Each item's `src`
+      // is either a local asset (optimized) or a hotlinked ArtStation CDN URL,
+      // mirroring how `cover` works.
+      gallery: z
+        .array(
+          z.object({
+            src: z.union([image(), z.string().url()]),
+            alt: z.string().default(''),
+            caption: z.string().optional(),
+          }),
+        )
+        .optional(),
     }),
 });
 
