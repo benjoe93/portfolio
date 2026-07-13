@@ -18,6 +18,12 @@ const experience = [
   { role: 'Technical Artist', org: 'Studio Name', period: '2023 — Present', note: 'Shaders, tools, and pipeline work for real-time projects.' },
   { role: 'Junior Technical Artist', org: 'Earlier Studio', period: '2021 — 2023', note: 'Material authoring and asset pipeline support.' },
 ];
+
+// Shipped titles you worked on. Edit these — link a store/press page if you have one.
+const releases = [
+  { title: 'Game Title', year: '2025', platforms: 'PC, PS5, Xbox Series', role: 'Technical Artist', url: '' },
+  { title: 'Another Game', year: '2023', platforms: 'PC', role: 'Junior Technical Artist', url: '' },
+];
 ---
 <BaseLayout title="About" description={`About ${site.name}, ${site.role}.`}>
   <section class="section container">
@@ -47,6 +53,20 @@ const experience = [
                 <span class="muted timeline-period">{e.period}</span>
               </div>
               <p class="muted">{e.note}</p>
+            </li>
+          ))}
+        </ul>
+
+        <h2>Releases</h2>
+        <ul class="timeline">
+          {releases.map((r) => (
+            <li>
+              <div class="timeline-head">
+                <strong>{r.url ? <a href={r.url} target="_blank" rel="noopener">{r.title}</a> : r.title}</strong>
+                <span class="muted"> · {r.platforms}</span>
+                <span class="muted timeline-period">{r.year}</span>
+              </div>
+              <p class="muted">{r.role}</p>
             </li>
           ))}
         </ul>
