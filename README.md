@@ -17,8 +17,8 @@ discoverability is preserved.
 
 ## Requirements
 
-- **Node.js** 18.20.8+ / 20.3+ / 22+ (built and tested on Node 25)
-- **npm** (bundled with Node)
+- **Node.js** ≥ 22.12.0 (required by Astro 7)
+- **npm** ≥ 9.6.5 (bundled with Node)
 
 ## Build & run
 

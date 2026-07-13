@@ -21,9 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: withastro/action@v3
+        with:
+          # Astro 7 requires Node >=22.12; the action defaults to Node 20.
+          node-version: 22
         # Reads package manager + build command automatically.
-        # If you deploy to a project repo (not <user>.github.io), set `path` and
-        # a `base` in astro.config.mjs to match the repo name.
+        # If you deploy to a project repo (not <user>.github.io), the `base` in
+        # astro.config.mjs must match the repo name (already set to '/portfolio').
 
   deploy:
     needs: build
