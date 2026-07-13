@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 //  - GitHub project repo: https://<username>.github.io  + base: '/<repo>'
 //  - Custom domain:      https://yourname.dev           (keep `base` unset)
 export default defineConfig({
-  site: 'https://username.github.io',
-  // base: '/portfolio', // uncomment ONLY for a project-repo deploy (not <user>.github.io)
+  site: 'https://benjoe93.github.io',
+  base: '/portfolio', // project-repo deploy: site is served at /portfolio
   integrations: [mdx(), sitemap()],
 });

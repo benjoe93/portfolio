@@ -8,16 +8,22 @@ export async function GET(context: APIContext) {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
 
+  // Include the deploy base path (e.g. /portfolio/) so item links are correct
+  // on a project-repo deploy. Normalize to a trailing slash — BASE_URL may be
+  // '/portfolio' (no slash) or '/', and URL resolution needs the trailing slash.
+  const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+  const siteRoot = new URL(base, context.site ?? site.url).href;
+
   return rss({
     title: `${site.name} — Blog`,
     description: site.tagline,
-    site: context.site ?? site.url,
+    site: siteRoot,
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
       categories: post.data.tags,
-      link: `/blog/${post.id}/`,
+      link: `blog/${post.id}/`,
     })),
   });
 }

@@ -4,8 +4,8 @@ export const site = {
   role: 'Senior Technical Artist',
   // One-line pitch shown in the hero and used as the default meta description.
   tagline: 'Technical artist bridging code and visuals — shaders, procedural tools, and real-time art for games.',
-  // Absolute URL of the deployed site; must match `site` in astro.config.mjs.
-  url: 'https://username.github.io',
+  // Absolute URL of the deployed site (includes the project-repo base path).
+  url: 'https://benjoe93.github.io/portfolio',
   email: 'blazerbence@gmail.com',
   // Location line for the About page / structured data (optional).
   location: '',
