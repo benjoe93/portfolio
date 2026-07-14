@@ -11,16 +11,14 @@ interface Props {
   disciplines: string[];
   repoUrl?: string;
   artstationUrl?: string;
-  liveUrl?: string;
 }
-const { href, title, summary, cover, coverAlt = '', disciplines, repoUrl, artstationUrl, liveUrl } =
+const { href, title, summary, cover, coverAlt = '', disciplines, repoUrl, artstationUrl } =
   Astro.props;
 
 const isRemote = typeof cover === 'string';
 const links = [
   repoUrl && { href: repoUrl, label: 'Code' },
   artstationUrl && { href: artstationUrl, label: 'ArtStation' },
-  liveUrl && { href: liveUrl, label: 'Live' },
 ].filter(Boolean) as { href: string; label: string }[];
 ---
 <article class="card" data-disciplines={disciplines.join(' ')}>

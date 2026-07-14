@@ -63,7 +63,7 @@ astro.config.mjs     # site URL + integrations
    unset for a `<username>.github.io` repo or a custom domain; set `base: '/<repo>'`
    only for a project-repo deploy.
 3. **Add work** — drop a `.md`/`.mdx` file in `src/content/work/` (or copy a template — see below). Schema:
-   `title, summary, cover, coverAlt, disciplines[], repoUrl?, artstationUrl?, liveUrl?, date, featured?, draft?, gallery?`.
+   `title, summary, cover, coverAlt, disciplines[], repoUrl?, artstationUrl?, date, featured?, draft?, hideCover?, gallery?`.
    - `cover` is either a local asset path (optimized by Astro) or a hotlinked
      ArtStation CDN URL. To feature an ArtStation piece: right-click its image →
      **Copy image address** → paste as `cover`; paste the project page URL as `artstationUrl`.

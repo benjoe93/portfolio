@@ -34,10 +34,10 @@ coverAlt: Short description of the cover image for screen readers
 # A hybrid piece can list several (e.g. a shader that's also art).
 disciplines: [shader, procedural, art]
 
-# Links — include any combination; the card/detail page shows only what's present.
+# Links — include either/both; the card/detail page shows only what's present.
+# For any other links (store page, demo, article), add them in the page body.
 repoUrl: https://github.com/yourname/my-piece
 artstationUrl: https://www.artstation.com/artwork/yourhash
-liveUrl: https://example.com/my-piece-demo
 
 date: 2026-07-13        # publish/sort date (YYYY-MM-DD)
 featured: true          # show in the "Featured work" strip on the home page (default false)

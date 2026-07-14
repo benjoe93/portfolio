@@ -29,7 +29,6 @@ const work = defineCollection({
       disciplines: z.array(z.enum(DISCIPLINES)).nonempty(),
       repoUrl: z.string().url().optional(),
       artstationUrl: z.string().url().optional(),
-      liveUrl: z.string().url().optional(),
       date: z.coerce.date(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),

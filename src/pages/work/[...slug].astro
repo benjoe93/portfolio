@@ -18,7 +18,6 @@ const isRemote = typeof d.cover === 'string';
 const links = [
   d.repoUrl && { href: d.repoUrl, label: 'View code' },
   d.artstationUrl && { href: d.artstationUrl, label: 'View on ArtStation' },
-  d.liveUrl && { href: d.liveUrl, label: 'Live demo' },
 ].filter(Boolean) as { href: string; label: string }[];
 
 const fmt = (date: Date) =>

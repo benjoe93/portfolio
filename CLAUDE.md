@@ -22,7 +22,7 @@ There is **no test runner and no separate lint step** — `npm run build` is the
 
 **Content Layer collections (Astro 5+ API).** Both collections are defined in `src/content.config.ts` using the `glob()` loader — schemas live there, not alongside the files. Entry `id` = filename without extension, and that `id` is the URL slug (`src/content/work/foo.md` → `/work/foo`).
 
-**The unified `work` schema is the heart of the app.** One model for code, art, and hybrid pieces: any combination of `repoUrl` / `artstationUrl` / `liveUrl` is allowed, and `WorkCard`/`work/[...slug].astro` render only the links that exist. When changing what a work item can be, edit the zod schema in `src/content.config.ts` first.
+**The unified `work` schema is the heart of the app.** One model for code, art, and hybrid pieces: any combination of `repoUrl` / `artstationUrl` is allowed, and `WorkCard`/`work/[...slug].astro` render only the links that exist (any other links go in the page body). When changing what a work item can be, edit the zod schema in `src/content.config.ts` first.
 
 **`DISCIPLINES` is a single source of truth** exported from `src/content.config.ts`. It is (a) the zod `enum` that validates each item's `disciplines[]`, and (b) the canonical order for the `/work` filter chips. The Work page intersects `DISCIPLINES` with disciplines actually present, so adding a new discipline means editing this one array.
 
