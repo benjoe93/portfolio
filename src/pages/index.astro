@@ -1,34 +1,34 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import WorkCard from '../components/WorkCard.astro';
-import { site } from '../data/site';
+import { getCollection } from "astro:content";
+import WorkCard from "../components/WorkCard.astro";
+import { site } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-const work = (await getCollection('work', ({ data }) => !data.draft)).sort(
+const work = (await getCollection("work", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 const featured = work.filter((w) => w.data.featured).slice(0, 6);
 const featuredWork = featured.length > 0 ? featured : work.slice(0, 6);
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 ---
+
 <BaseLayout person>
   <section class="hero container">
     <p class="eyebrow">{site.role}</p>
     <h1>{site.name}</h1>
     <p class="lede muted">{site.tagline}</p>
-    <div class="hero-actions">
+    <!-- <div class="hero-actions">
       <a class="btn btn--primary" href={`${base}/work`}>View Work</a>
       <a class="btn" href={site.socials.artstation} target="_blank" rel="me noopener">ArtStation ↗</a>
       <a class="btn" href={site.socials.github} target="_blank" rel="me noopener">GitHub ↗</a>
-    </div>
+    </div> -->
   </section>
 
   <section class="section container">
@@ -37,50 +37,80 @@ const fmt = (d: Date) =>
       <a href={`${base}/work`}>All work →</a>
     </div>
     <div class="work-grid">
-      {featuredWork.map((w) => (
-        <WorkCard
-          href={`${base}/work/${w.id}`}
-          title={w.data.title}
-          summary={w.data.summary}
-          cover={w.data.cover}
-          coverAlt={w.data.coverAlt}
-          disciplines={w.data.disciplines}
-          repoUrl={w.data.repoUrl}
-          artstationUrl={w.data.artstationUrl}
-        />
-      ))}
+      {
+        featuredWork.map((w) => (
+          <WorkCard
+            href={`${base}/work/${w.id}`}
+            title={w.data.title}
+            summary={w.data.summary}
+            cover={w.data.cover}
+            coverAlt={w.data.coverAlt}
+            disciplines={w.data.disciplines}
+            repoUrl={w.data.repoUrl}
+            artstationUrl={w.data.artstationUrl}
+          />
+        ))
+      }
     </div>
   </section>
 
-  {posts.length > 0 && (
-    <section class="section container">
-      <div class="section-head">
-        <h2>Latest writing</h2>
-        <a href={`${base}/blog`}>All posts →</a>
-      </div>
-      <ul class="post-list">
-        {posts.map((p) => (
-          <li>
-            <a class="post-row" href={`${base}/blog/${p.id}`}>
-              <span class="post-row-title">{p.data.title}</span>
-              <time class="muted" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
+  {
+    posts.length > 0 && (
+      <section class="section container">
+        <div class="section-head">
+          <h2>Latest writing</h2>
+          <a href={`${base}/blog`}>All posts →</a>
+        </div>
+        <ul class="post-list">
+          {posts.map((p) => (
+            <li>
+              <a class="post-row" href={`${base}/blog/${p.id}`}>
+                <span class="post-row-title">{p.data.title}</span>
+                <time class="muted" datetime={p.data.date.toISOString()}>
+                  {fmt(p.data.date)}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--space-16) var(--space-12); }
-  .hero h1 { margin: var(--space-2) 0; }
-  .lede { font-size: clamp(1.1rem, 2.5vw, 1.4rem); max-width: 40rem; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+  .hero {
+    padding-block: var(--space-16) var(--space-12);
+  }
+  .hero h1 {
+    margin: var(--space-2) 0;
+  }
+  .lede {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    max-width: 40rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
 
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-8); }
-  .section-head a { font-weight: 600; text-decoration: none; white-space: nowrap; }
-  .section-head a:hover { text-decoration: underline; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  .section-head a {
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .section-head a:hover {
+    text-decoration: underline;
+  }
 
   .work-grid {
     display: grid;
@@ -88,12 +118,26 @@ const fmt = (d: Date) =>
     gap: var(--space-6);
   }
 
-  .post-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
-  .post-row {
-    display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4);
-    padding: var(--space-4) 0; border-bottom: 1px solid var(--border);
-    text-decoration: none; color: var(--text);
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
   }
-  .post-row:hover .post-row-title { color: var(--accent); }
-  .post-row-title { font-weight: 600; }
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+  }
+  .post-row:hover .post-row-title {
+    color: var(--accent);
+  }
+  .post-row-title {
+    font-weight: 600;
+  }
 </style>
