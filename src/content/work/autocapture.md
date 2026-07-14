@@ -3,7 +3,7 @@ title: AutoCapture - Screenshot tool
 summary: An editor tool for capturing screenshots in bulk from every camera in a level, with automatic timed captures and reminders.
 cover: https://cdnb.artstation.com/p/assets/images/images/089/735/963/large/bence-blazer-cover.jpg?1751813110
 coverAlt: AutoCapture editor tool cover art
-disciplines: [tool]
+disciplines: [tool, code]
 artstationUrl: https://www.artstation.com/artwork/GvYa8N
 date: 2025-07-06
 featured: true
