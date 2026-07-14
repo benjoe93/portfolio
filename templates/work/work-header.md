@@ -42,6 +42,7 @@ liveUrl: https://example.com/my-piece-demo
 date: 2026-07-13        # publish/sort date (YYYY-MM-DD)
 featured: true          # show in the "Featured work" strip on the home page (default false)
 draft: false            # true = hidden from the built site (default false)
+hideCover: false        # true = suppress the big cover image on the detail page; cover still used for the /work card + social image (default false)
 
 # Optional image gallery — see templates/work/gallery.md for the full block.
 # gallery:

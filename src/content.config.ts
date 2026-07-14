@@ -33,6 +33,9 @@ const work = defineCollection({
       date: z.coerce.date(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
+      // Suppress the large cover image on the work detail page. The cover is
+      // still required and still used for the /work card and the OG/social image.
+      hideCover: z.boolean().default(false),
       // Optional image gallery rendered under the case study. Each item's `src`
       // is either a local asset (optimized) or a hotlinked ArtStation CDN URL,
       // mirroring how `cover` works.

@@ -44,13 +44,15 @@ const fmt = (date: Date) =>
       </div>
     </header>
 
-    <figure class="cover">
-      {isRemote ? (
-        <img src={d.cover as string} alt={d.coverAlt} width="1200" height="800" />
-      ) : (
-        <Image src={d.cover as ImageMetadata} alt={d.coverAlt} widths={[600, 1200]} sizes="(max-width: 48rem) 100vw, 48rem" />
-      )}
-    </figure>
+    {!d.hideCover && (
+      <figure class="cover">
+        {isRemote ? (
+          <img src={d.cover as string} alt={d.coverAlt} width="1200" height="800" />
+        ) : (
+          <Image src={d.cover as ImageMetadata} alt={d.coverAlt} widths={[600, 1200]} sizes="(max-width: 48rem) 100vw, 48rem" />
+        )}
+      </figure>
+    )}
 
     <div class="prose work-body">
       <Content />
